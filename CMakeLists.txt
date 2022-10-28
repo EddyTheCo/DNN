@@ -8,7 +8,7 @@ include(FetchContent)
 add_library(DNN_abbas INTERFACE include/custom-modules/dnn.hpp)
 
 if(USE_YAML)
-	target_compile_definitions(DNN_abbas PUBLIC USE_YAML)
+	target_compile_definitions(DNN_abbas INTERFACE USE_YAML)
 	if(NOT TARGET yaml-cpp)
 		find_package(YAML-CPP CONFIG QUIET)
 		if(NOT YAML-CPP_FOUND)
