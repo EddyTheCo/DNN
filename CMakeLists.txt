@@ -20,12 +20,12 @@ if(USE_YAML)
 				GIT_TAG yaml-cpp-0.7.0
 				)
 			FetchContent_MakeAvailable(yaml-cpp)
+			install(TARGETS yaml-cpp EXPORT DNN_abbasTargets DESTINATION lib)
 		else()
 			message(STATUS "YAML FOUND in ${YAML-CPP_DIR}")
 		endif(NOT YAML-CPP_FOUND)
 	endif(NOT TARGET yaml-cpp)
-	install(TARGETS yaml-cpp EXPORT DNN_abbasTargets DESTINATION lib)
-	target_link_libraries(DNN_abbas PRIVATE  yaml-cpp)
+	target_link_libraries(DNN_abbas INTERFACE  yaml-cpp)
 endif(USE_YAML)
 
 

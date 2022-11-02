@@ -25,7 +25,7 @@ class DNN_abbasImpl : public torch::nn::Module {
       }
     void update(void)const{};
 #ifdef USE_YAML
-            DNN_abbasImpl(YAML::Node config):DNN_abbasImpl(config["Layers"].as<std::vector<int64_t>>()){std::cout<<config<<std::endl;};
+            DNN_abbasImpl(YAML::Node config):DNN_abbasImpl(config["Layers"].as<std::vector<int64_t>>()){};
 #endif
       torch::Tensor forward(at::Tensor x ) {
 
