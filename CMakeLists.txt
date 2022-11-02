@@ -5,7 +5,7 @@ project(DNN_module VERSION 0.1 DESCRIPTION "a Deep Neural Network ML-torch modul
 find_package(Torch REQUIRED)
 
 include(FetchContent)
-add_library(DNN_abbas INTERFACE include/custom-modules/dnn.hpp)
+add_library(DNN_abbas INTERFACE include/custom-modules/dnn_abbas.hpp)
 
 if(USE_YAML)
 	target_compile_definitions(DNN_abbas INTERFACE USE_YAML)
@@ -20,12 +20,12 @@ if(USE_YAML)
 				GIT_TAG yaml-cpp-0.7.0
 				)
 			FetchContent_MakeAvailable(yaml-cpp)
-			install(TARGETS yaml-cpp EXPORT ${PROJECT_NAME}Targets DESTINATION lib)
-			target_link_libraries(DNN_abbas PRIVATE  yaml-cpp)
 		else()
 			message(STATUS "YAML FOUND in ${YAML-CPP_DIR}")
 		endif(NOT YAML-CPP_FOUND)
 	endif(NOT TARGET yaml-cpp)
+	install(TARGETS yaml-cpp EXPORT DNN_abbasTargets DESTINATION lib)
+	target_link_libraries(DNN_abbas PRIVATE  yaml-cpp)
 endif(USE_YAML)
 
 
