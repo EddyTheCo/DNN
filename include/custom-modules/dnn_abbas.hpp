@@ -8,9 +8,9 @@
 
 
 namespace custom_models{
-class DNNImpl : public torch::nn::Module {
+class DNN_abbasImpl : public torch::nn::Module {
     public:
-    DNNImpl(const std::vector<int64_t>& layers) {
+    DNN_abbasImpl(const std::vector<int64_t>& layers) {
 
           for(auto i=0;i<layers.size()-1;i++)
           {
@@ -25,7 +25,7 @@ class DNNImpl : public torch::nn::Module {
       }
     void update(void)const{};
 #ifdef USE_YAML
-            DNNImpl(YAML::Node config):DNNImpl(config["Layers"].as<std::vector<int64_t>>()){std::cout<<config<<std::endl;};
+            DNN_abbasImpl(YAML::Node config):DNNImpl(config["Layers"].as<std::vector<int64_t>>()){std::cout<<config<<std::endl;};
 #endif
       torch::Tensor forward(at::Tensor x ) {
 
@@ -42,5 +42,5 @@ class DNNImpl : public torch::nn::Module {
         }
       std::vector<torch::nn::Linear> Layers;
 };
-TORCH_MODULE(DNN);
+TORCH_MODULE(DNN_abbas);
 };
