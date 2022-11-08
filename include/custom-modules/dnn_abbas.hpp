@@ -16,8 +16,7 @@ namespace custom_models{
 				{
 					auto var=torch::nn::Linear(torch::nn::LinearOptions(layers[i],layers[i+1]).bias(false));
 
-					//var->weight.data()=2*torch::rand({layers[i+1],layers[i]})-1; // initialize uniformly the parameters of the model between -1 and 1
-					var->weight.data()=torch::rand({layers[i+1],layers[i]}); // initialize uniformly the parameters of the model between -0 and 1.Although in the article  they say between -1 and 1. In the code they use from 0 to 1.
+					var->weight.data()=2*torch::rand({layers[i+1],layers[i]})-1; // initialize uniformly the parameters of the model between -1 and 1
 
 					Layers.push_back(register_module("linear_"+std::to_string(i),var));
 
