@@ -5,33 +5,17 @@ project(DNN_module VERSION 0.1 DESCRIPTION "a Deep Neural Network ML-torch modul
 find_package(Torch REQUIRED)
 
 include(FetchContent)
-add_library(DNN_abbas INTERFACE include/custom-modules/dnn_abbas.hpp)
+add_library(DNN_abbas include/custom-modules/dnn_abbas.hpp)
 
 if(USE_YAML)
-	target_compile_definitions(DNN_abbas INTERFACE USE_YAML)
-	if(NOT TARGET yaml-cpp)
-		find_package(YAML-CPP CONFIG QUIET)
-		if(NOT YAML-CPP_FOUND)
-			message(STATUS "YAML-CPP was not found. Downloading")
-
-			FetchContent_Declare(
-				yaml-cpp
-				GIT_REPOSITORY git@github.com:jbeder/yaml-cpp.git
-				GIT_TAG yaml-cpp-0.7.0
-				)
-			FetchContent_MakeAvailable(yaml-cpp)
-			install(TARGETS yaml-cpp EXPORT DNN_abbasTargets DESTINATION lib)
-		else()
-			message(STATUS "YAML FOUND in ${YAML-CPP_DIR}")
-		endif(NOT YAML-CPP_FOUND)
-	endif(NOT TARGET yaml-cpp)
-	target_link_libraries(DNN_abbas INTERFACE  yaml-cpp)
+	target_compile_definitions(DNN_abbas PUBLIC USE_YAML)
+	find_package(YAML-CPP CONFIG REQUIRED)
+	target_link_libraries(DNN_abbas PUBLIC  yaml-cpp)
 endif(USE_YAML)
 
+target_link_libraries(DNN_abbas  PUBLIC "${TORCH_LIBRARIES}")
 
-target_link_libraries(DNN_abbas  INTERFACE "${TORCH_LIBRARIES}")
-
-target_include_directories(DNN_abbas INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+target_include_directories(DNN_abbas PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 	"$<INSTALL_INTERFACE:include>")
 
 install(TARGETS DNN_abbas EXPORT DNN_abbasTargets DESTINATION lib)
